@@ -8,6 +8,6 @@ const schema=mongoose.Schema(
     }
 )
 
-let bookmodel=mongoose.model("book",schema);
-module.exports={studentmodel}
+let booksmodel=mongoose.model("books",schema);
+module.exports={booksmodel}
 

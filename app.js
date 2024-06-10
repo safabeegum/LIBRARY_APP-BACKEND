@@ -1,7 +1,7 @@
 const express= require("express")
 const mongoose= require("mongoose")
 const cors= require("cors")
-const book=require("./models/book")
+const books=require("./models/books")
 
 const app=express()
 app.use(cors())
