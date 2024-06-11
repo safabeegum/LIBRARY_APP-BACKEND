@@ -1,17 +1,26 @@
 const express= require("express")
 const mongoose= require("mongoose")
 const cors= require("cors")
-const books=require("./models/books")
+const {bookmodel}=require("./models/books")
 
 const app=express()
 app.use(cors())
+app.use(express.json())
+
+//mongodb connection
+mongoose.connect("mongodb+srv://safabeegum:mongodb24@cluster0.pbzbbey.mongodb.net/librarydb?retryWrites=true&w=majority&appName=Cluster0")
+
 
 app.get("/",(req,res) => {
     res.send("Hello")
 })
 
 app.post("/add",(req,res) => {
-    res.send("Welcome to my Add Page")
+    let input = req.body
+    let book=new bookmodel(input)
+    book.save()
+    res.json({status:"success"})
+
 })
 
 
@@ -24,9 +33,17 @@ app.post("/delete",(req,res) => {
 })
 
 app.get("/view",(req,res) => {
-    res.send("View Page")
+    bookmodel.find().then(
+        (data) => {
+            res.json(data)
+        }
+    ).catch(
+        (error) => {
+            res.json(error)
+        }
+    )
 })
 
-app.listen(8080,() => {
+app.listen(8081,() => {
     console.log("server started")
 })
